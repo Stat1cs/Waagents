@@ -1,0 +1,159 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  Building2,
+  Car,
+  Dumbbell,
+  Scissors,
+  Stethoscope,
+  UtensilsCrossed,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+import { useTranslation } from "@/hooks/useTranslation";
+import { cn } from "@/lib/utils";
+
+type Industry = {
+  id: string;
+  icon: LucideIcon;
+  name: string;
+  useCase: string;
+  stat: string;
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.07 } },
+};
+
+const card = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0 },
+};
+
+export function Industries() {
+  const { t } = useTranslation("industries");
+
+  const industries: Industry[] = [
+    {
+      id: "clinics",
+      icon: Stethoscope,
+      name: t("clinics.name", "Clinics"),
+      useCase: t(
+        "clinics.useCase",
+        "Book consultations, answer insurance questions, send pre-visit instructions.",
+      ),
+      stat: t("clinics.stat", "38% more booked appointments"),
+    },
+    {
+      id: "real-estate",
+      icon: Building2,
+      name: t("realEstate.name", "Real Estate"),
+      useCase: t(
+        "realEstate.useCase",
+        "Qualify buyers, schedule viewings, and follow up on off-plan inquiries.",
+      ),
+      stat: t("realEstate.stat", "2× faster lead response"),
+    },
+    {
+      id: "gyms",
+      icon: Dumbbell,
+      name: t("gyms.name", "Gyms"),
+      useCase: t(
+        "gyms.useCase",
+        "Sell memberships, book trial sessions, and re-engage lapsed members.",
+      ),
+      stat: t("gyms.stat", "29% trial-to-member conversion"),
+    },
+    {
+      id: "restaurants",
+      icon: UtensilsCrossed,
+      name: t("restaurants.name", "Restaurants"),
+      useCase: t(
+        "restaurants.useCase",
+        "Take reservations, share menus, and confirm large party bookings.",
+      ),
+      stat: t("restaurants.stat", "Fewer no-shows with reminders"),
+    },
+    {
+      id: "car-dealerships",
+      icon: Car,
+      name: t("carDealerships.name", "Car Dealerships"),
+      useCase: t(
+        "carDealerships.useCase",
+        "Capture test-drive requests, qualify financing interest, route to sales.",
+      ),
+      stat: t("carDealerships.stat", "47% more qualified test drives"),
+    },
+    {
+      id: "beauty-salons",
+      icon: Scissors,
+      name: t("beautySalons.name", "Beauty Salons"),
+      useCase: t(
+        "beautySalons.useCase",
+        "Book stylists, upsell packages, and manage cancellation waitlists.",
+      ),
+      stat: t("beautySalons.stat", "22% higher package upsells"),
+    },
+  ];
+
+  return (
+    <section id="industries" className="bg-background px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10 text-center md:mb-14"
+        >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+            {t("label", "Industries")}
+          </p>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+            {t("title", "Built for businesses that run on WhatsApp")}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
+            {t(
+              "subtitle",
+              "Templates and flows tuned for your sector — go live in days, not months.",
+            )}
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+          className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-5"
+        >
+          {industries.map((industry) => (
+            <motion.article
+              key={industry.id}
+              variants={card}
+              whileHover={{ y: -3 }}
+              className={cn(
+                "group flex flex-col rounded-2xl border border-border bg-secondary/20 p-4 transition-colors",
+                "hover:border-gold/35 sm:p-5",
+              )}
+            >
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gold/12 text-gold transition-colors group-hover:bg-gold/20 sm:h-11 sm:w-11">
+                <industry.icon className="h-5 w-5 sm:h-5 sm:w-5" />
+              </div>
+
+              <h3 className="text-sm font-semibold text-foreground sm:text-base">{industry.name}</h3>
+              <p className="mt-2 flex-1 text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
+                {industry.useCase}
+              </p>
+
+              <p className="mt-3 border-t border-border pt-3 text-[10px] font-medium text-gold sm:text-xs">
+                {industry.stat}
+              </p>
+            </motion.article>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
