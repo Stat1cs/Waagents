@@ -3,6 +3,7 @@ import { Cairo, Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { JsonLd } from "@/components/shared/JsonLd";
+import { DmChampWidget } from "@/components/shared/DmChampWidget";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { localeInitScript, parseLocale } from "@/lib/i18n/locale";
 import { WEBSITE_URL } from "@/lib/constants";
@@ -112,6 +113,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <LanguageProvider initialLocale={initialLocale}>{children}</LanguageProvider>
         </ThemeProvider>
+        <DmChampWidget />
       </body>
     </html>
   );

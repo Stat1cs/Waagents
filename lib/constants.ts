@@ -9,6 +9,9 @@ export const DBS_URL = "https://dbs.om";
 export const COMPANY_LOCATION = "Muscat, Sultanate of Oman";
 export const LEGAL_EMAIL = "legal@waagents.ai";
 
+export const DMCHAMP_CHAT_WIDGET_URL =
+  "https://api.dmchamp.com/v1/chat-widget/rRHuuvUQqA1ErKHNpHp5";
+
 export const DEMO_MESSAGES = {
   en: "Hi, I'd like to see how Wa-Agents handles WhatsApp bookings for my business.",
   ar: "مرحباً، أود معرفة كيف تساعد Wa-Agents في حجز المواعيد عبر واتساب لنشاطي التجاري.",
