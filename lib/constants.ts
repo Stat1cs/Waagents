@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "96894445675";
+export const WHATSAPP_NUMBER = "96893658441";
 
 export const BRAND_NAME = "Wa-Agents";
 export const WEBSITE_URL = "https://waagents.ai";
