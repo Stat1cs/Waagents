@@ -70,7 +70,7 @@ export function Pricing() {
                 </h3>
                 <div className="mt-4 flex items-baseline justify-center gap-1">
                   <span className="text-3xl font-bold text-gold sm:text-4xl">
-                    {tier.price}
+                    {tier.price.toFixed(3)}
                   </span>
                   <span className="text-sm text-muted-foreground">
                     {t("currency", "OMR")}
@@ -116,7 +116,7 @@ export function Pricing() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {t("subscribe", "Subscribe")}
+                  {t("buyNow", "Subscribe Now")}
                 </a>
               </Button>
             </motion.article>

@@ -17,13 +17,27 @@ export const DEMO_MESSAGES = {
   ar: "مرحباً، أود معرفة كيف تساعد Wa-Agents في حجز المواعيد عبر واتساب لنشاطي التجاري.",
 } as const;
 
+export function normalizeWhatsAppPhone(number: string = WHATSAPP_NUMBER): string {
+  return number.replace(/\D/g, "");
+}
+
+/**
+ * WhatsApp click-to-chat URL.
+ * Uses api.whatsapp.com because wa.me is blocked/unresolvable on some networks (NXDOMAIN).
+ * @see https://faq.whatsapp.com/5913398998672934
+ * Phone: full international format, digits only (e.g. 96893658441).
+ */
 export function getWhatsAppDemoUrl(
   message?: string,
   locale: keyof typeof DEMO_MESSAGES = "en",
 ): string {
+  const phone = normalizeWhatsAppPhone();
   const text = encodeURIComponent(message ?? DEMO_MESSAGES[locale]);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  return `https://api.whatsapp.com/send?phone=${phone}&text=${text}`;
 }
+
+/** Prefer same-tab navigation so mobile OS can open the WhatsApp app. */
+export const WHATSAPP_LINK_REL = "noopener noreferrer";
 
 /** Wa-Agents brand palette (from logo) */
 export const BRAND = {

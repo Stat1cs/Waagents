@@ -28,6 +28,7 @@ type Feature = {
 };
 
 function WhatsAppMockup() {
+  const { t } = useTranslation("features");
   return (
     <div
       className="mt-4 space-y-2.5 rounded-xl border border-border/60 p-3"
@@ -40,7 +41,7 @@ function WhatsAppMockup() {
             WHATSAPP_CHAT.bubbleIncoming,
           )}
         >
-          Hi, do you have teeth cleaning slots tomorrow?
+          {t("mockups.whatsappIn", "Hi, do you have teeth cleaning slots tomorrow?")}
         </div>
       </div>
       <div className="flex justify-end">
@@ -50,18 +51,22 @@ function WhatsAppMockup() {
             WHATSAPP_CHAT.bubbleOutgoing,
           )}
         >
-          Yes! Tomorrow at 10 AM or 4 PM — which works for you?
+          {t(
+            "mockups.whatsappOut",
+            "Yes! Tomorrow at 10 AM or 4 PM — which works for you?",
+          )}
         </div>
       </div>
       <div className="flex items-center gap-1 text-[9px] text-gold">
         <Sparkles className="h-2.5 w-2.5" />
-        AI replied in 2s
+        {t("mockups.aiReplied", "AI replied in 2s")}
       </div>
     </div>
   );
 }
 
 function BilingualMockup() {
+  const { t } = useTranslation("features");
   return (
     <div
       className="mt-4 space-y-2.5 rounded-xl border border-border/60 p-3"
@@ -75,7 +80,10 @@ function BilingualMockup() {
           )}
           dir="rtl"
         >
-          أهلاً! نقدر نحجز لك موعد اليوم. تفضل العيادة Main أو Al Mouj؟
+          {t(
+            "mockups.bilingualOut",
+            "أهلاً! نقدر نحجز لك موعد اليوم. تفضل العيادة Main أو Al Mouj؟",
+          )}
         </div>
       </div>
       <div className="flex justify-start">
@@ -85,7 +93,7 @@ function BilingualMockup() {
             WHATSAPP_CHAT.bubbleIncoming,
           )}
         >
-          Al Mouj branch please
+          {t("mockups.bilingualIn", "Al Mouj branch please")}
         </div>
       </div>
       <div className="flex gap-1">
@@ -97,18 +105,21 @@ function BilingualMockup() {
 }
 
 function InstagramMockup() {
+  const { t } = useTranslation("features");
   return (
     <div className="mt-4 rounded-xl bg-gradient-to-br from-purple-600/20 via-pink-500/10 to-orange-400/10 p-3">
       <div className="flex items-center gap-2 border-b border-border pb-2">
         <div className="h-6 w-6 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600" />
-        <span className="text-[10px] font-medium text-muted-foreground">your_clinic</span>
+        <span className="text-[10px] font-medium text-muted-foreground">
+          {t("mockups.instagramHandle", "your_clinic")}
+        </span>
       </div>
       <div className="mt-2 space-y-1.5">
         <div className="rounded-lg bg-white/5 px-2 py-1 text-[9px] text-muted-foreground">
-          Price for laser session?
+          {t("mockups.instagramIn", "Price for laser session?")}
         </div>
         <div className="ml-4 rounded-lg bg-gold/15 px-2 py-1 text-[9px] text-gold">
-          OMR 450 — book via DM ✓
+          {t("mockups.instagramOut", "OMR 450 — book via DM ✓")}
         </div>
       </div>
     </div>
@@ -116,10 +127,13 @@ function InstagramMockup() {
 }
 
 function BookingMockup() {
+  const { t } = useTranslation("features");
   return (
     <div className="mt-4 rounded-xl border border-gold/20 bg-background/60 p-3">
       <div className="flex items-center justify-between text-[10px]">
-        <span className="text-muted-foreground">Thu, 24 May</span>
+        <span className="text-muted-foreground">
+          {t("mockups.bookingDate", "Thu, 24 May")}
+        </span>
         <CalendarCheck className="h-3.5 w-3.5 text-gold" />
       </div>
       <div className="mt-2 grid grid-cols-3 gap-1">
@@ -137,20 +151,36 @@ function BookingMockup() {
           </div>
         ))}
       </div>
-      <p className="mt-2 text-[9px] text-emerald-400">✓ Confirmed — reminder sent</p>
+      <p className="mt-2 text-[9px] text-emerald-400">
+        {t("mockups.bookingConfirmed", "✓ Confirmed — reminder sent")}
+      </p>
     </div>
   );
 }
 
 function LeadMockup() {
+  const { t } = useTranslation("features");
+  const rows = [
+    {
+      label: t("mockups.leadService", "Service"),
+      value: t("mockups.leadServiceVal", "Dental implant"),
+    },
+    {
+      label: t("mockups.leadBudget", "Budget"),
+      value: t("mockups.leadBudgetVal", "OMR 8–12K"),
+    },
+    {
+      label: t("mockups.leadTimeline", "Timeline"),
+      value: t("mockups.leadTimelineVal", "This month"),
+    },
+    {
+      label: t("mockups.leadScore", "Score"),
+      value: t("mockups.leadScoreVal", "Hot lead 🔥"),
+    },
+  ];
   return (
     <div className="mt-4 space-y-1.5 rounded-xl bg-background/60 p-3">
-      {[
-        { label: "Service", value: "Dental implant" },
-        { label: "Budget", value: "OMR 8–12K" },
-        { label: "Timeline", value: "This month" },
-        { label: "Score", value: "Hot lead 🔥" },
-      ].map((row) => (
+      {rows.map((row) => (
         <div key={row.label} className="flex justify-between text-[9px]">
           <span className="text-muted-foreground">{row.label}</span>
           <span className="text-muted-foreground">{row.value}</span>
@@ -161,9 +191,12 @@ function LeadMockup() {
 }
 
 function CampaignMockup() {
+  const { t } = useTranslation("features");
   return (
     <div className="mt-4 rounded-xl bg-background/60 p-3">
-      <div className="mb-2 text-[9px] font-medium text-gold">Ramadan follow-up</div>
+      <div className="mb-2 text-[9px] font-medium text-gold">
+        {t("mockups.campaignTitle", "Ramadan follow-up")}
+      </div>
       <div className="space-y-1">
         {[68, 42, 89].map((pct, i) => (
           <div key={i} className="flex items-center gap-2">
@@ -182,17 +215,25 @@ function CampaignMockup() {
 }
 
 function WebsiteChatMockup() {
+  const { t } = useTranslation("features");
   return (
     <div className="mt-4 overflow-hidden rounded-xl border border-border bg-secondary/40">
-      <div className="bg-secondary px-2 py-1 text-[8px] text-muted-foreground">yourclinic.om</div>
+      <div className="bg-secondary px-2 py-1 text-[8px] text-muted-foreground">
+        {t("mockups.websiteDomain", "yourclinic.om")}
+      </div>
       <div className="p-2">
         <div className="rounded-lg bg-background p-2 shadow-lg">
           <div className="mb-1 flex items-center gap-1">
             <MessageCircle className="h-3 w-3 text-gold" />
-            <span className="text-[9px] font-medium text-foreground">Chat with us</span>
+            <span className="text-[9px] font-medium text-foreground">
+              {t("mockups.websiteChat", "Chat with us")}
+            </span>
           </div>
           <div className="rounded bg-secondary/60 px-2 py-1 text-[8px] text-muted-foreground">
-            Ask about services, pricing, or book a visit
+            {t(
+              "mockups.websitePrompt",
+              "Ask about services, pricing, or book a visit",
+            )}
           </div>
         </div>
       </div>

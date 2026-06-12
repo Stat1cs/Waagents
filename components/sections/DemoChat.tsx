@@ -24,7 +24,8 @@ import { Button } from "@/components/ui/button";
 import { IslamicPatternBackground } from "@/components/shared/IslamicPatternBackground";
 import { useTranslation } from "@/hooks/useTranslation";
 import { DEMO_CONVERSATIONS, type DemoMessage } from "@/lib/demo-conversation";
-import { getWhatsAppDemoUrl, BRAND_LOGOS, WHATSAPP_CHAT } from "@/lib/constants";
+import { BRAND_LOGOS, getWhatsAppDemoUrl, WHATSAPP_CHAT, WHATSAPP_LINK_REL } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
 function useIsMobile(breakpoint = 768) {
@@ -149,6 +150,11 @@ function ChatBubble({ message }: { message: DemoMessage }) {
 
 export function DemoChat() {
   const { t, locale } = useTranslation("demoChat");
+  const { locale: activeLocale, initialLocale, hydrated } = useLanguage();
+  const demoUrl = getWhatsAppDemoUrl(
+    "Hi, I'd like to book a demo for my clinic.",
+    hydrated ? activeLocale : initialLocale,
+  );
   const isMobile = useIsMobile();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -398,13 +404,7 @@ export function DemoChat() {
               )}
             </p>
             <Button asChild size="sm">
-              <a
-                href={getWhatsAppDemoUrl(
-                  "Hi, I'd like to book a demo for my clinic.",
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={demoUrl} rel={WHATSAPP_LINK_REL} suppressHydrationWarning>
                 {t("footer.cta", "Book your demo")}
                 <ArrowRight className="h-4 w-4" />
               </a>

@@ -6,7 +6,8 @@ import { MessageCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
-import { getWhatsAppDemoUrl } from "@/lib/constants";
+import { WHATSAPP_LINK_REL } from "@/lib/constants";
+import { useWhatsAppDemoUrl } from "@/hooks/useWhatsAppDemoUrl";
 import { cn } from "@/lib/utils";
 
 type MobileStickyCTAProps = {
@@ -38,7 +39,7 @@ export function MobileStickyCTA({
     return () => observer.disconnect();
   }, [heroId]);
 
-  const demoUrl = getWhatsAppDemoUrl();
+  const demoUrl = useWhatsAppDemoUrl();
 
   return (
     <AnimatePresence>
@@ -54,7 +55,7 @@ export function MobileStickyCTA({
           )}
         >
           <Button asChild className="min-h-11 w-full gap-2 text-base">
-            <a href={demoUrl} target="_blank" rel="noopener noreferrer">
+            <a href={demoUrl} rel={WHATSAPP_LINK_REL} suppressHydrationWarning>
               <MessageCircle className="h-5 w-5" />
               {t("sticky", "Book a WhatsApp demo")}
             </a>

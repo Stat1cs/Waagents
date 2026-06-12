@@ -18,6 +18,7 @@ import { translations, type Locale, type TranslationNamespaces } from "./transla
 
 type LanguageContextValue = {
   locale: Locale;
+  initialLocale: Locale;
   setLocale: (locale: Locale) => void;
   toggleLocale: () => void;
   dir: "ltr" | "rtl";
@@ -89,12 +90,13 @@ export function LanguageProvider({
   const value = useMemo(
     () => ({
       locale,
+      initialLocale,
       setLocale,
       toggleLocale,
       dir,
       hydrated,
     }),
-    [locale, setLocale, toggleLocale, dir, hydrated],
+    [locale, initialLocale, setLocale, toggleLocale, dir, hydrated],
   );
 
   return (

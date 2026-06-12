@@ -9,7 +9,8 @@ import { LanguageToggle } from "@/components/shared/LanguageToggle";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
-import { APP_URL, getWhatsAppDemoUrl } from "@/lib/constants";
+import { APP_URL, WHATSAPP_LINK_REL } from "@/lib/constants";
+import { useWhatsAppDemoUrl } from "@/hooks/useWhatsAppDemoUrl";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -22,7 +23,7 @@ const navLinks = [
 export function Navbar() {
   const { t } = useTranslation("nav");
   const [open, setOpen] = useState(false);
-  const demoUrl = getWhatsAppDemoUrl();
+  const demoUrl = useWhatsAppDemoUrl();
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -65,7 +66,7 @@ export function Navbar() {
               </a>
             </Button>
             <Button asChild size="sm" className="h-9 gap-1.5 rounded-full px-4">
-              <a href={demoUrl} target="_blank" rel="noopener noreferrer">
+              <a href={demoUrl} rel={WHATSAPP_LINK_REL} suppressHydrationWarning>
                 {t("bookDemo", "Book Demo")}
                 <ArrowRight className="h-3.5 w-3.5" />
               </a>
@@ -136,8 +137,8 @@ export function Navbar() {
               <Button asChild size="lg" className="min-h-11 w-full gap-2 rounded-full">
                 <a
                   href={demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  rel={WHATSAPP_LINK_REL}
+                  suppressHydrationWarning
                   onClick={() => setOpen(false)}
                 >
                   <MessageCircle className="h-4 w-4" />

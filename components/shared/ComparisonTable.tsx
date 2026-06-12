@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Check, Minus, X } from "lucide-react";
 
@@ -12,17 +13,10 @@ export type ComparisonRow = {
   chatbot: boolean | "partial";
 };
 
-const defaultRows: ComparisonRow[] = [
-  { feature: "Closes deals in chat", waAgents: true, chatbot: false },
-  { feature: "Handles objections", waAgents: true, chatbot: false },
-  { feature: "Books appointments inside the conversation", waAgents: true, chatbot: false },
-  { feature: "Understands Arabic & English", waAgents: true, chatbot: "partial" },
-  { feature: "Remembers past conversations", waAgents: true, chatbot: false },
-  { feature: "Gets smarter automatically", waAgents: true, chatbot: false },
-  { feature: "Instagram DM + website chat", waAgents: true, chatbot: "partial" },
-  { feature: "CRM sync & campaign automation", waAgents: true, chatbot: false },
-  { feature: "Every channel in one inbox", waAgents: true, chatbot: "partial" },
-];
+type ComparisonTableProps = {
+  rows?: ComparisonRow[];
+  className?: string;
+};
 
 function StatusCell({
   value,
@@ -73,13 +67,61 @@ function StatusCell({
   );
 }
 
-type ComparisonTableProps = {
-  rows?: ComparisonRow[];
-  className?: string;
-};
-
-export function ComparisonTable({ rows = defaultRows, className }: ComparisonTableProps) {
+export function ComparisonTable({ rows, className }: ComparisonTableProps) {
   const { t } = useTranslation("comparison");
+
+  const defaultRows = useMemo<ComparisonRow[]>(
+    () => [
+      {
+        feature: t("rows.r1", "Closes deals in chat"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r2", "Handles objections"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r3", "Books appointments inside the conversation"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r4", "Understands Arabic & English"),
+        waAgents: true,
+        chatbot: "partial",
+      },
+      {
+        feature: t("rows.r5", "Remembers past conversations"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r6", "Gets smarter automatically"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r7", "Instagram DM + website chat"),
+        waAgents: true,
+        chatbot: "partial",
+      },
+      {
+        feature: t("rows.r8", "CRM sync & campaign automation"),
+        waAgents: true,
+        chatbot: false,
+      },
+      {
+        feature: t("rows.r9", "Every channel in one inbox"),
+        waAgents: true,
+        chatbot: "partial",
+      },
+    ],
+    [t],
+  );
+
+  const tableRows = rows ?? defaultRows;
 
   const colWaAgents = t("col.waAgents", "Wa-Agents AI");
   const colChatbot = t("col.chatbot", "Regular chatbots");
@@ -114,7 +156,7 @@ export function ComparisonTable({ rows = defaultRows, className }: ComparisonTab
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, i) => (
+            {tableRows.map((row, i) => (
               <motion.tr
                 key={row.feature}
                 initial={{ opacity: 0 }}

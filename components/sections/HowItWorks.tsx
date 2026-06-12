@@ -25,13 +25,14 @@ type Step = {
 };
 
 function ConnectPreview() {
+  const { t } = useTranslation("howItWorks");
   return (
     <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
       <div className="flex items-center gap-2 rounded-lg bg-secondary/50 px-3 py-2">
         <MessageCircle className="h-4 w-4 text-[#25D366]" />
         <span className="text-[10px] text-foreground">+968 9X XXX XXXX</span>
         <Badge variant="success" className="ml-auto text-[9px]">
-          Connected
+          {t("preview.connected", "Connected")}
         </Badge>
       </div>
     </div>
@@ -39,11 +40,20 @@ function ConnectPreview() {
 }
 
 function TrainPreview() {
+  const { t } = useTranslation("howItWorks");
+  const tags = [
+    t("preview.tagCleaning", "Cleaning"),
+    t("preview.tagWhitening", "Whitening"),
+    t("preview.tagAlMouj", "Al Mouj"),
+    t("preview.tagAlKhuwair", "Al Khuwair"),
+  ];
   return (
     <div className="mt-4 space-y-2 rounded-xl border border-border bg-background/60 p-3">
-      <p className="text-[10px] text-muted-foreground">Services · Hours · Branches</p>
+      <p className="text-[10px] text-muted-foreground">
+        {t("preview.trainLabel", "Services · Hours · Branches")}
+      </p>
       <div className="flex flex-wrap gap-1">
-        {["Cleaning", "Whitening", "Al Mouj", "Al Khuwair"].map((tag) => (
+        {tags.map((tag) => (
           <span
             key={tag}
             className="rounded bg-gold/15 px-2 py-0.5 text-[9px] text-gold"
@@ -57,6 +67,7 @@ function TrainPreview() {
 }
 
 function ReplyPreview() {
+  const { t } = useTranslation("howItWorks");
   return (
     <div className="mt-4 space-y-2 rounded-xl border border-border bg-background/60 p-3">
       <div
@@ -65,21 +76,26 @@ function ReplyPreview() {
           WHATSAPP_CHAT.bubbleOutgoing,
         )}
       >
-        Yes! Tomorrow 2 PM or 4:30 PM?
+        {t("preview.reply", "Yes! Tomorrow 2 PM or 4:30 PM?")}
       </div>
       <p className="flex items-center gap-1 text-[9px] text-gold">
         <Sparkles className="h-2.5 w-2.5" />
-        AI · 2s
+        {t("preview.aiTiming", "AI · 2s")}
       </p>
     </div>
   );
 }
 
 function BookPreview() {
+  const { t } = useTranslation("howItWorks");
   return (
     <div className="mt-4 rounded-xl border border-border bg-background/60 p-3">
-      <p className="text-[10px] font-medium text-foreground">📅 Thu 2:00 PM booked</p>
-      <p className="mt-1 text-[9px] text-muted-foreground">Synced to calendar · Reminder scheduled</p>
+      <p className="text-[10px] font-medium text-foreground">
+        {t("preview.booked", "📅 Thu 2:00 PM booked")}
+      </p>
+      <p className="mt-1 text-[9px] text-muted-foreground">
+        {t("preview.synced", "Synced to calendar · Reminder scheduled")}
+      </p>
     </div>
   );
 }

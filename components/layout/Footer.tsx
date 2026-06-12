@@ -4,49 +4,19 @@ import { Instagram, Linkedin, MessageCircle } from "lucide-react";
 
 import { BrandLogo } from "@/components/shared/BrandLogo";
 import { useTranslation } from "@/hooks/useTranslation";
-import { CONTACT_EMAIL, DBS_URL, getWhatsAppDemoUrl, HELP_URL } from "@/lib/constants";
+import {
+  DBS_URL,
+  HELP_URL,
+  WHATSAPP_LINK_REL,
+} from "@/lib/constants";
+import { useWhatsAppDemoUrl } from "@/hooks/useWhatsAppDemoUrl";
 import { cn } from "@/lib/utils";
 
 const productLinks = [
-  { href: "#features", key: "features" },
-  { href: "#how-it-works", key: "howItWorks" },
-  { href: "#pricing", key: "pricing" },
-  { href: "#faq", key: "faq" },
-] as const;
-
-const businessLinks = [
-  { href: "#industries", key: "industries" },
-  { href: "#comparison", key: "comparison" },
-  { href: "#demo", key: "demo" },
-  { href: getWhatsAppDemoUrl(), key: "whatsappDemo", external: true },
-] as const;
-
-const companyLinks = [
-  { href: HELP_URL, key: "helpCentre", external: true },
-  { href: getWhatsAppDemoUrl(), key: "contact", external: true },
-  { href: "/terms", key: "terms" },
-  { href: "/privacy", key: "privacy" },
-] as const;
-
-const socialLinks = [
-  {
-    href: getWhatsAppDemoUrl(),
-    icon: MessageCircle,
-    labelKey: "whatsapp",
-    external: true,
-  },
-  {
-    href: "https://instagram.com/",
-    icon: Instagram,
-    labelKey: "instagram",
-    external: true,
-  },
-  {
-    href: "https://linkedin.com/",
-    icon: Linkedin,
-    labelKey: "linkedin",
-    external: true,
-  },
+  { href: "/#features", key: "features" },
+  { href: "/#how-it-works", key: "howItWorks" },
+  { href: "/#pricing", key: "pricing" },
+  { href: "/#faq", key: "faq" },
 ] as const;
 
 const footerLinkLabels: Record<string, string> = {
@@ -64,16 +34,19 @@ const footerLinkLabels: Record<string, string> = {
   privacy: "Privacy Policy",
 };
 
+type FooterLink = {
+  href: string;
+  key: string;
+  external?: boolean;
+  whatsapp?: boolean;
+};
+
 function FooterColumn({
   title,
   links,
 }: {
   title: string;
-  links: readonly {
-    href: string;
-    key: string;
-    external?: boolean;
-  }[];
+  links: readonly FooterLink[];
 }) {
   const { t } = useTranslation("footer");
 
@@ -81,13 +54,15 @@ function FooterColumn({
     <div>
       <h3 className="mb-4 text-sm font-semibold text-foreground">{title}</h3>
       <ul className="space-y-2.5">
-        {links.map(({ href, key, external }) => (
+        {links.map(({ href, key, external, whatsapp }) => (
           <li key={key}>
             <a
               href={href}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               {...(external
-                ? { target: "_blank", rel: "noopener noreferrer" }
+                ? whatsapp
+                  ? { rel: WHATSAPP_LINK_REL, suppressHydrationWarning: true }
+                  : { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
             >
               {t(key, footerLinkLabels[key] ?? key)}
@@ -102,6 +77,45 @@ function FooterColumn({
 export function Footer() {
   const { t } = useTranslation("footer");
   const year = new Date().getFullYear();
+  const demoUrl = useWhatsAppDemoUrl();
+
+  const businessLinks: FooterLink[] = [
+    { href: "/#industries", key: "industries" },
+    { href: "/#comparison", key: "comparison" },
+    { href: "/#demo", key: "demo" },
+    { href: demoUrl, key: "whatsappDemo", external: true, whatsapp: true },
+  ];
+
+  const companyLinks: FooterLink[] = [
+    { href: HELP_URL, key: "helpCentre", external: true },
+    { href: demoUrl, key: "contact", external: true, whatsapp: true },
+    { href: "/terms", key: "terms" },
+    { href: "/privacy", key: "privacy" },
+  ];
+
+  const socialLinks: {
+    href: string;
+    icon: typeof MessageCircle;
+    labelKey: string;
+    whatsapp?: boolean;
+  }[] = [
+    {
+      href: demoUrl,
+      icon: MessageCircle,
+      labelKey: "whatsapp",
+      whatsapp: true,
+    },
+    {
+      href: "https://instagram.com/",
+      icon: Instagram,
+      labelKey: "instagram",
+    },
+    {
+      href: "https://linkedin.com/",
+      icon: Linkedin,
+      labelKey: "linkedin",
+    },
+  ];
 
   return (
     <section className="relative px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4 sm:px-6 lg:px-8">
@@ -123,26 +137,20 @@ export function Footer() {
                   )}
                 </p>
                 <div className="mt-5 flex items-center gap-2">
-                  {socialLinks.map(({ href, icon: Icon, labelKey, external }) => (
+                  {socialLinks.map(({ href, icon: Icon, labelKey, whatsapp }) => (
                     <a
                       key={labelKey}
                       href={href}
                       aria-label={t(`social.${labelKey}`, labelKey)}
                       className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground dark:bg-background/40"
-                      {...(external
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
+                      {...(whatsapp
+                        ? { rel: WHATSAPP_LINK_REL, suppressHydrationWarning: true }
+                        : { target: "_blank", rel: "noopener noreferrer" })}
                     >
                       <Icon className="h-4 w-4" aria-hidden />
                     </a>
                   ))}
                 </div>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="mt-4 inline-block text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t("email", CONTACT_EMAIL)}
-                </a>
               </div>
 
               <div className="lg:col-span-2 lg:col-start-6">
