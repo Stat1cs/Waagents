@@ -64,7 +64,7 @@ export const pricingTiers: readonly PricingTierConfig[] = [
     id: "pro",
     tierIndex: 2,
     checkoutUrl: getCheckoutUrl(2),
-    price: 34.5,
+    price: 34.9,
     credits: 600,
     orderClass: "order-3",
     features: [
