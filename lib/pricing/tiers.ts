@@ -1,8 +1,14 @@
-export const CHECKOUT_BASE =
-  "https://app.dmchamp.com/v1/checkout?id=sDHgSWkA7zaNUPIWq55NnQbLnHv1";
+/** DM Champ agency checkout id (use as agencyId, not id). */
+export const DMCHAMP_AGENCY_ID = "sDHgSWkA7zaNUPIWq55NnQbLnHv1";
 
-export const TRIAL_CHECKOUT_URL =
+export const CHECKOUT_BASE = `https://app.dmchamp.com/v1/checkout?agencyId=${DMCHAMP_AGENCY_ID}`;
+
+/** Stripe Payment Link for Starter with a 7-day free trial (configure trial in Stripe Dashboard). */
+export const STARTER_TRIAL_CHECKOUT_URL =
   "https://buy.stripe.com/aFa7sLbqd2jy7qp2Vkco003";
+
+/** @deprecated Use STARTER_TRIAL_CHECKOUT_URL */
+export const TRIAL_CHECKOUT_URL = STARTER_TRIAL_CHECKOUT_URL;
 
 export const TRIAL_ANCHOR = "#trial";
 
@@ -22,6 +28,10 @@ export type PricingTierConfig = {
   price: number | null;
   priceDisplay: "free" | "custom" | "amount";
   credits: number | null;
+  /** Trial card only: plan included in the trial */
+  trialPlan?: Exclude<PricingTierId, "trial" | "custom">;
+  /** Trial card only: recurring price after the trial ends */
+  afterTrialPrice?: number;
   popular?: boolean;
   orderClass?: string;
   ctaType: PricingCtaType;
@@ -30,22 +40,27 @@ export type PricingTierConfig = {
   features: readonly string[];
 };
 
+const STARTER_FEATURES = [
+  "1 Channel",
+  "Image Understanding",
+  "Contact Tagging",
+  "Incoming Campaigns",
+  "20 AI Responses / Chat",
+  "20K Campaign Context",
+] as const;
+
 export const pricingTiers: readonly PricingTierConfig[] = [
   {
     id: "trial",
-    checkoutUrl: TRIAL_CHECKOUT_URL,
+    checkoutUrl: STARTER_TRIAL_CHECKOUT_URL,
     price: null,
     priceDisplay: "free",
-    credits: 50,
+    credits: 150,
+    trialPlan: "starter",
+    afterTrialPrice: 9.9,
     orderClass: "order-1",
     ctaType: "checkout",
-    features: [
-      "7-day free trial",
-      "1 Channel (WhatsApp)",
-      "50 AI messages total",
-      "Arabic + English replies",
-      "Basic booking flow",
-    ],
+    features: ["7-day free trial on Starter", ...STARTER_FEATURES],
   },
   {
     id: "starter",
@@ -56,14 +71,7 @@ export const pricingTiers: readonly PricingTierConfig[] = [
     credits: 150,
     orderClass: "order-2 lg:order-2",
     ctaType: "checkout",
-    features: [
-      "1 Channel",
-      "Image Understanding",
-      "Contact Tagging",
-      "Incoming Campaigns",
-      "20 AI Responses / Chat",
-      "20K Campaign Context",
-    ],
+    features: STARTER_FEATURES,
   },
   {
     id: "growth",
@@ -71,7 +79,7 @@ export const pricingTiers: readonly PricingTierConfig[] = [
     checkoutUrl: getCheckoutUrl(1),
     price: 19.9,
     priceDisplay: "amount",
-    credits: 300,
+    credits: 350,
     popular: true,
     orderClass: "order-3 lg:order-3",
     ctaType: "checkout",
@@ -100,7 +108,7 @@ export const pricingTiers: readonly PricingTierConfig[] = [
     checkoutUrl: getCheckoutUrl(2),
     price: 39.9,
     priceDisplay: "amount",
-    credits: 600,
+    credits: 700,
     orderClass: "order-4 lg:order-4",
     ctaType: "checkout",
     features: [

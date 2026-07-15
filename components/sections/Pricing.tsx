@@ -32,8 +32,24 @@ function TierPrice({
           {t("free", "Free")}
         </span>
         <p className="mt-1 text-xs text-muted-foreground">
-          {t("trialPeriod", "7-day trial")}
+          {tier.trialPlan
+            ? t("starterTrialPeriod", "7-day Starter trial")
+            : t("trialPeriod", "7-day trial")}
         </p>
+        {tier.afterTrialPrice != null && (
+          <p
+            className="mt-1 inline-flex items-baseline justify-center gap-1 text-xs text-muted-foreground"
+            dir="ltr"
+          >
+            <span>{t("trialThenPricePrefix", "Then")}</span>
+            <OmaniRialSign
+              className="h-[0.85em] w-auto translate-y-[0.04em]"
+              label={t("currencyLabel", "Omani rial")}
+            />
+            <span>{tier.afterTrialPrice.toFixed(3)}</span>
+            <span>/{t("period", "month")}</span>
+          </p>
+        )}
       </>
     );
   }
@@ -177,7 +193,9 @@ function PricingCard({
 
       <div className="mb-5 text-center">
         <h3 className="text-lg font-semibold text-foreground">
-          {t(`${tier.id}.name`, tier.id.charAt(0).toUpperCase() + tier.id.slice(1))}
+          {tier.id === "trial" && tier.trialPlan
+            ? t("starterTrialName", "Starter trial")
+            : t(`${tier.id}.name`, tier.id.charAt(0).toUpperCase() + tier.id.slice(1))}
         </h3>
         <div className="mt-4">
           <TierPrice tier={tier} t={t} />
