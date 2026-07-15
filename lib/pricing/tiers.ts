@@ -3,7 +3,7 @@ export const DMCHAMP_AGENCY_ID = "sDHgSWkA7zaNUPIWq55NnQbLnHv1";
 
 export const CHECKOUT_BASE = `https://app.dmchamp.com/v1/checkout?agencyId=${DMCHAMP_AGENCY_ID}`;
 
-/** Stripe Payment Link for Starter with a 7-day free trial (configure trial in Stripe Dashboard). */
+/** @deprecated Standalone Stripe link — does not use DM Champ checkout / subaccount flow. */
 export const STARTER_TRIAL_CHECKOUT_URL =
   "https://buy.stripe.com/aFa7sLbqd2jy7qp2Vkco003";
 
@@ -52,7 +52,8 @@ const STARTER_FEATURES = [
 export const pricingTiers: readonly PricingTierConfig[] = [
   {
     id: "trial",
-    checkoutUrl: STARTER_TRIAL_CHECKOUT_URL,
+    tierIndex: 0,
+    checkoutUrl: getCheckoutUrl(0),
     price: null,
     priceDisplay: "free",
     credits: 150,
