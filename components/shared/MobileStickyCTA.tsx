@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
-import { TRIAL_ANCHOR } from "@/lib/pricing/tiers";
+import { STARTER_TRIAL_CHECKOUT_URL } from "@/lib/pricing/tiers";
 import { cn } from "@/lib/utils";
 
 type MobileStickyCTAProps = {
@@ -52,7 +52,11 @@ export function MobileStickyCTA({
           )}
         >
           <Button asChild variant="premium" className="min-h-11 w-full gap-2 rounded-full text-base">
-            <a href={TRIAL_ANCHOR}>
+            <a
+              href={STARTER_TRIAL_CHECKOUT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <ArrowRight className="h-5 w-5" />
               {t("sticky", "Start free trial")}
             </a>

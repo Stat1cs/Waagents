@@ -10,7 +10,7 @@ import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
 import { APP_URL } from "@/lib/constants";
-import { TRIAL_ANCHOR } from "@/lib/pricing/tiers";
+import { STARTER_TRIAL_CHECKOUT_URL } from "@/lib/pricing/tiers";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -86,7 +86,11 @@ export function Navbar() {
               size="sm"
               className="h-9 gap-1.5 rounded-full px-4"
             >
-              <a href={TRIAL_ANCHOR}>
+              <a
+                href={STARTER_TRIAL_CHECKOUT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {t("startTrial", "Start free trial")}
                 <ArrowRight className="h-3.5 w-3.5" />
               </a>
@@ -169,7 +173,12 @@ export function Navbar() {
                 </a>
               </Button>
               <Button asChild variant="premium" size="lg" className="min-h-11 w-full gap-2 rounded-full">
-                <a href={TRIAL_ANCHOR} onClick={() => setOpen(false)}>
+                <a
+                  href={STARTER_TRIAL_CHECKOUT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                >
                   <ArrowRight className="h-4 w-4" />
                   {t("startTrial", "Start free trial")}
                 </a>
