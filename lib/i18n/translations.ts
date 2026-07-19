@@ -485,6 +485,22 @@ const en = {
     sticky: "Start free trial",
     tryLive: "Try it out live",
   },
+  notFound: {
+    brand: "Wa-Agents",
+    code: "404",
+    eyebrow: "Message undelivered",
+    title: "This page never reached the inbox",
+    description:
+      "The link you followed is missing, moved, or was never sent. Let’s get you back to something that replies.",
+    home: "Back to home",
+    startTrial: "Start free trial",
+    chatHeader: "Wa-Agents · Support",
+    chatStatus: "Online",
+    bubbleIncoming: "Hi — looking for that page…",
+    bubbleFailed: "Couldn’t deliver. The conversation doesn’t exist.",
+    bubbleOutgoing: "No worries — head home or start a free trial.",
+    timestamp: "now",
+  },
 } as const;
 
 const ar = {
@@ -971,6 +987,22 @@ const ar = {
   cta: {
     sticky: "ابدأ التجربة المجانية",
     tryLive: "جرّبه الآن",
+  },
+  notFound: {
+    brand: "Wa-Agents",
+    code: "404",
+    eyebrow: "لم تُسلَّم الرسالة",
+    title: "هذه الصفحة لم تصل إلى صندوق الوارد",
+    description:
+      "الرابط الذي اتبعته مفقود أو نُقل أو لم يُرسل أصلاً. لنُعدك إلى ما يرد عليك.",
+    home: "العودة إلى الرئيسية",
+    startTrial: "ابدأ التجربة المجانية",
+    chatHeader: "Wa-Agents · الدعم",
+    chatStatus: "متصل",
+    bubbleIncoming: "مرحباً — أبحث عن تلك الصفحة…",
+    bubbleFailed: "تعذّر التسليم. هذه المحادثة غير موجودة.",
+    bubbleOutgoing: "لا بأس — ارجع للرئيسية أو ابدأ تجربة مجانية.",
+    timestamp: "الآن",
   },
 } as const;
 

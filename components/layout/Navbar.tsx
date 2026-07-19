@@ -14,10 +14,10 @@ import { STARTER_TRIAL_CHECKOUT_URL } from "@/lib/pricing/tiers";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#features", key: "features" },
-  { href: "#industries", key: "industries" },
-  { href: "#pricing", key: "pricing" },
-  { href: "#faq", key: "faq" },
+  { href: "/#features", key: "features" },
+  { href: "/#industries", key: "industries" },
+  { href: "/#pricing", key: "pricing" },
+  { href: "/#faq", key: "faq" },
 ] as const;
 
 export function Navbar() {
@@ -137,7 +137,7 @@ export function Navbar() {
             aria-label={t("mobileMenu", "Navigation menu")}
           >
             <div className="flex items-center justify-between px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))]">
-              <BrandLogo size="md" />
+              <BrandLogo asLink size="md" onClick={() => setOpen(false)} />
               <button
                 type="button"
                 className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-border"
